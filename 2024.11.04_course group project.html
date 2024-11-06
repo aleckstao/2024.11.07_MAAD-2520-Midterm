@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Facial Features Description</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .slider-container, .select-container, .text-container {
+      margin-bottom: 20px;
+    }
+    .slider-label, .select-label, .text-label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .output {
+      margin-top: 20px;
+      font-weight: bold;
+      display: none; /* Initially hidden */
+    }
+  </style>
+</head>
+<body>
+  <h1>Facial Features Description Generator</h1>
+  
+  <!-- Face Width Slider -->
+  <div class="slider-container">
+    <label class="slider-label" for="faceWidth">Face Width (in inches):</label>
+    <input type="range" id="faceWidth" min="1" max="10" step="0.1" value="8">
+    <span id="faceWidthValue">8</span> inches
+  </div>
+
+  <!-- Eye Spacing Slider -->
+  <div class="slider-container">
+    <label class="slider-label" for="eyeSpacing">Eye Spacing (in inches):</label>
+    <input type="range" id="eyeSpacing" min="1" max="4" step="0.1" value="2.5">
+    <span id="eyeSpacingValue">2.5</span> inches
+  </div>
+
+  <!-- Nose Length Slider -->
+  <div class="slider-container">
+    <label class="slider-label" for="noseLength">Nose Length (in inches):</label>
+    <input type="range" id="noseLength" min="1" max="3" step="0.1" value="2">
+    <span id="noseLengthValue">2</span> inches
+  </div>
+
+  <!-- Face Length Slider -->
+  <div class="slider-container">
+    <label class="slider-label" for="faceLength">Face Length (in inches):</label>
+    <input type="range" id="faceLength" min="4" max="10" step="0.1" value="7">
+    <span id="faceLengthValue">7</span> inches
+  </div>
+
+  <!-- Age Slider -->
+  <div class="slider-container">
+    <label class="slider-label" for="age">Age:</label>
+    <input type="range" id="age" min="1" max="100" step="1" value="25">
+    <span id="ageValue">25</span> years
+  </div>
+
+  <!-- Mouth Width Slider -->
+  <div class="slider-container">
+    <label class="slider-label" for="mouthWidth">Mouth Width (in inches):</label>
+    <input type="range" id="mouthWidth" min="1" max="4" step="0.1" value="2">
+    <span id="mouthWidthValue">2</span> inches
+  </div>
+
+  <!-- Sex Dropdown -->
+  <div class="select-container">
+    <label class="select-label" for="sex">Sex:</label>
+    <select id="sex">
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+  </div>
+
+  <!-- Ethnicity Text Box -->
+  <div class="text-container">
+    <label class="text-label" for="ethnicity">Ethnicity:</label>
+    <input type="text" id="ethnicity" placeholder="Enter ethnicity">
+  </div>
+
+  <!-- Generate Button -->
+  <button onclick="generateDescription()">Generate</button>
+  
+  <!-- Copy to Clipboard Button -->
+  <button onclick="copyToClipboard()">Copy to Clipboard</button>
+
+  <!-- Output Description -->
+  <div class="output" id="descriptionOutput"></div>
+
+  <script>
+    // Function to update the text next to each slider
+    document.getElementById("faceWidth").oninput = function() {
+      document.getElementById("faceWidthValue").textContent = this.value;
+    };
+    document.getElementById("eyeSpacing").oninput = function() {
+      document.getElementById("eyeSpacingValue").textContent = this.value;
+    };
+    document.getElementById("noseLength").oninput = function() {
+      document.getElementById("noseLengthValue").textContent = this.value;
+    };
+    document.getElementById("faceLength").oninput = function() {
+      document.getElementById("faceLengthValue").textContent = this.value;
+    };
+    document.getElementById("age").oninput = function() {
+      document.getElementById("ageValue").textContent = this.value;
+    };
+    document.getElementById("mouthWidth").oninput = function() {
+      document.getElementById("mouthWidthValue").textContent = this.value;
+    };
+
+    // Function to generate the description
+    function generateDescription() {
+      // Get values from sliders, dropdown, and text box
+      const faceWidth = document.getElementById("faceWidth").value;
+      const eyeSpacing = document.getElementById("eyeSpacing").value;
+      const noseLength = document.getElementById("noseLength").value;
+      const faceLength = document.getElementById("faceLength").value;
+      const age = document.getElementById("age").value;
+      const mouthWidth = document.getElementById("mouthWidth").value;
+      const sex = document.getElementById("sex").value;
+      const ethnicity = document.getElementById("ethnicity").value;
+
+      // Generate descriptive text
+      const description = `Generate an image of a ${age}-year-old ${ethnicity} ${sex} with a face width of ${faceWidth} inches, 
+        face length of ${faceLength} inches, eye spacing of ${eyeSpacing} inches, nose length of ${noseLength} inches, 
+        and mouth width of ${mouthWidth} inches.`;
+
+      // Display the output text
+      const outputElement = document.getElementById("descriptionOutput");
+      outputElement.textContent = description;
+      outputElement.style.display = "block"; // Make the output visible
+    }
+
+    // Function to copy the description to the clipboard
+    function copyToClipboard() {
+      const outputText = document.getElementById("descriptionOutput").textContent;
+      navigator.clipboard.writeText(outputText).then(() => {
+        alert("Description copied to clipboard!");
+      }).catch(err => {
+        console.error("Failed to copy text: ", err);
+      });
+    }
+  </script>
+</body>
+</html>
